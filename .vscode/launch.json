@@ -1,0 +1,72 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "API SISCOR - Development",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/server.js",
+            "env": {
+                "NODE_ENV": "development"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "API SISCOR - QAS",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/server.js",
+            "env": {
+                "NODE_ENV": "qas"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "API SISCOR - Test",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/server.js",
+            "env": {
+                "NODE_ENV": "test"
+            }
+        },
+        {
+            "name": "API SISCOR - Jest Tests",
+            "type": "node",
+            "request": "launch",
+            "runtimeArgs": [
+                "--inspect-brk",
+                "${workspaceRoot}/node_modules/.bin/jest",
+                "--runInBand"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+            //"port": 9229
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "LAMBDA: API SISCOR - QAS",
+            "runtimeArgs": ["run","lambda-offline"],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeVersion": "16",
+            "outputCapture": "std",
+            "env": {
+                "NODE_ENV": "qas"
+            }
+        },
+    ]
+}

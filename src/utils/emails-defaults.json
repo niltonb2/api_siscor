@@ -1,0 +1,27 @@
+{
+    "NEW_INVOICE": {
+        "title": "@nomeCredor - Nova Fatura",
+        "subject": "Nova fatura",
+        "html": "<p><font size='3'>Olá, @nomeCliente!</font></p><p><font size='3'>Enviamos a seguir o link para pagamento referente ao produto/serviço que você adquiriu de&nbsp;<span><b>@nomeCredor</b></span>. Caso tenha qualquer dúvida p<span>edimos que entre em contato</span><span>&nbsp;para maiores esclarecimentos&nbsp; referente ao produto/serviço ou pagamento.</span></font></p><p><font size='3'><br>Valor da fatura: <b>R$&nbsp;<span>@valorFatura</span></b><br>Data de Vencimento:&nbsp;<span><b>@dataVencimentoFatura</b></span></font></p><p><span><font size='3'><br></font></span></p><div><font size='5'>Acesse sua fatura&nbsp;<a href='@frontEndUrl/#/login/@documentoCliente/@idFatura' target='_blank'>clicando aqui</a>.</font></div><div><font size='3'><br></font></div><div><div><font size='3'>Atenciosamente,</font></div><div><font size='3'>@nomeCredor - @emailCredor</font></div></div>"
+    },
+    "OVERDUE_INVOICE": {
+        "title": "@nomeCredor - Fatura vencida",
+        "subject": "Fatura vencida",
+        "html": "<p><font size='3'>Olá, @nomeCliente!</font></p><p><font size='3'><br></font></p><p><font size='3'>Consta em nossos sistema que a fatura abaixo encontra-se aberta. Enviamos a seguir o link para pagamento referente ao produto/serviço que você adquiriu de&nbsp;<span>@nomeCredor</span>.&nbsp;&nbsp;</font><span>Caso o pagamento já tenha sido efetuado, por favor, desconsidere esta aviso.</span></p><p><font size='3'><br>Valor da fatura:&nbsp;<span>R$&nbsp;@valorFatura</span><br>Data de Vencimento:&nbsp;<span>@dataVencimentoFatura</span></font></p><p><font size='5'><br></font></p><div><font size='5'>Acesse sua fatura&nbsp;<a href='@frontEndUrl/#/login/@documentoCliente/@idFatura' target='_blank'>clicando aqui</a>.</font></div><div><font size='3'><br></font></div><div><div><font size='3'>Atenciosamente,</font></div><div><font size='3'>@nomeCredor - @emailCredor</font></div></div>"
+    },
+    "NEW_USER": {
+        "title": "@nomeUsuario seja bem-vindo!",
+        "subject": "Bem-Vindo",
+        "html": "<p><font size='3'>Olá, @nomeUsuario tudo bem?</font></p><p><font size='3'><br></font></p><p><font size='3'>Acabamos de te cadastrar em nosso sistema de negociação, seja bem-vindo!</font></p><p><font size='3'><br></font></p><div><font size='5'>Acesse sua conta&nbsp;<a href='@frontEndUrl/#/admin' target='_blank'>clicando aqui</a>.</font></div><div><br></div>"
+    },
+    "NEW_CUSTOMER": {
+        "title": "@nomeCliente seja bem-vindo!",
+        "subject": "Bem-Vindo",
+        "html": "<p><font size='3'>Olá, @nomeCliente tudo bem?</font></p><p><font size='3'><br></font></p><p><font size='3'>Acabamos de te cadastrar em nosso sistema de negociação, seja bem-vindo!</font></p><p><font size='3'><br></font></p><div><font size='5'>Acesse sua conta&nbsp;<a href='@frontEndUrl/#/login/@documentoCliente' target='_blank'>clicando aqui</a>.</font></div><div><br></div>"
+    },
+    "CHARGE_INVOICE": {
+        "title": "@nomeCredor - Fatura em aberto",
+        "subject": "Fatura em aberto",
+        "html": "<p><font size='3'>Olá, @nomeCliente!</font></p><p><font size='3'><br></font></p><p><font size='3'>Enviamos a seguir o link para pagamento referente ao produto/serviço que você adquiriu de&nbsp;<span>@nomeCredor</span>. Caso tenha qualquer dúvida pedimos que entre em contato&nbsp;para maiores esclarecimentos&nbsp; referente ao produto/serviço ou pagamento.</font></p><p><font size='3'><br>Valor da fatura:&nbsp;<span>R$&nbsp;@valorFatura</span><br>Data de Vencimento:&nbsp;<span>@dataVencimentoFatura</span></font></p><p><font size='3'><br></font></p><div><font size='5'>Acesse sua fatura&nbsp;<a href='@frontEndUrl/#/login/@documentoCliente/@idFatura' target='_blank'>clicando aqui</a>.</font></div><div><font size='3'><br></font></div><div><div><font size='3'>Atenciosamente,</font></div><div><font size='3'>@nomeCredor - @emailCredor</font></div></div>"
+    }
+}

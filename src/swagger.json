@@ -1,0 +1,941 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API - SISCOR",
+        "description": "SISCOR - Sistema de Controle de Contratos e Recorrência.",
+        "contact": {
+            "email": "emaildomarkys@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Development"
+        } 
+    ],
+    "paths": {
+        "/usuarios/save": {
+            "post": {
+                "summary": "Cadastro de usuário",
+                "description": "Essa rota permite o cadastro de usuários.",
+                "tags": ["Usuários"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UsuarioSave"
+                            },
+                            "examples": {
+                                "usuarioCadastro": {
+                                    "value": {
+                                        "nome": "developer",
+                                        "email": "developer@gmail.com",
+                                        "senha": "123abc"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Já existe usuário para o email informado./Erro no cadastro de usuário./Mensagem de erro YUP."
+                    },
+                    "200": {
+                        "description": "Cadastro realizado com sucesso."
+                    }
+                }
+            }
+        },
+        "/usuarios/login": {
+            "post": {
+                "summary": "Login de usuário",
+                "description": "Essa rota permite o login de usuário",
+                "tags": ["Usuários"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UsuarioLogin"
+                            },
+                            "examples": {
+                                "usuarioLogin": {
+                                    "value": {
+                                        "email": "developer@gmail.com",
+                                        "senha": "123abc"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Não existe usuário para o email informado./Senha incorreta./Mensagem de erro YUP."
+                    },
+                    "200": {
+                        "description": "Bem vindo USUÁRIO + TOKEN."
+                    }
+                }
+            }
+        },
+        "/usuarios": {
+            "get": {
+                "summary": "Busca de usuários",
+                "description": "Essa rota permite pesquisar os usuários",
+                "tags": ["Usuários"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Array de usuários cadastrados."
+                    }
+                }
+            }
+        },
+        "/usuarios/{id}": {
+            "put": {
+                "summary": "Edição de Usuários.",
+                "description": "Essa rota permite editar os usuários.",
+                "tags": ["Usuários"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Usuário ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UsuarioEdit"
+                            },
+                            "examples": {
+                                "usuarioCadastro": {
+                                    "value": {
+                                        "nome": "developerEdit",
+                                        "email": "developer_edit@gmail.com"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Já existe usuário para o email informado./Erro na atualização de usuário./Mensagem de erro YUP."
+                    },
+                    "200": {
+                        "description": "Usuário atualizado com sucesso."
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deleção de Usuários.",
+                "description": "Essa rota permite deletar os usuários.",
+                "tags": ["Usuários"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Usuário ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Não existe usuário para a ID informada."
+                    },
+                    "200": {
+                        "description": "Usuário deletado com sucesso."
+                    }
+                }
+            }
+        },
+        "/estabelecimento": {
+            "post": {
+                "summary": "Cadastro de estabelecimento",
+                "description": "Essa rota permite o cadastro de estabelecimento.",
+                "tags": ["Estabelecimento"],
+                "security": [{"bearerAuth" : [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EstabelecimentoSave"
+                            },
+                            "examples": {
+                                "estabelecimentoCadastro": {
+                                    "value": {
+                                        "nome": "Estabelecimento Teste",
+                                        "email": "ec2@email.com"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Erro no cadastro de estabelecimento./Erro ao vincular estabelecimento ao usuário./Mensagem de erro YUP."
+                    },
+                    "200": {
+                        "description": "Cadastro realizado com sucesso."
+                    }
+                }
+
+            },
+            "get": {
+                "summary": "Busca de estabelecimentos.",
+                "description": "Essa rota permite pesquisar os estabelecimentos.",
+                "tags": ["Estabelecimento"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Array de estabelecimentos cadastrados."
+                    }
+                }
+            }
+        },
+        "/estabelecimento/{id}": {
+            "put": {
+                "summary": "Atualização de estabelecimento",
+                "description": "Essa rota permite a atualização de estabelecimento.",
+                "tags": ["Estabelecimento"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Estabelecimento ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EstabelecimentoSave"
+                            },
+                            "examples": {
+                                "estabelecimentoEdit": {
+                                    "value": {
+                                        "nome": "Estabelecimento Teste Edit",
+                                        "email": "ec2_edit@email.com"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Não existe estabelecimento para a ID informada./Erro na atualização de estabelecimento./Mensagem de erro YUP."
+                    },
+                    "200": {
+                        "description": "Estabelecimento alterado com sucesso."
+                    }
+                }
+
+            },
+            "delete": {
+                "summary": "Deleção de estabelecimentos.",
+                "description": "Essa rota permite deletar os estabelecimentos.",
+                "tags": ["Estabelecimento"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Estabelecimento ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Não existe estabelecimento para a ID informada."
+                    },
+                    "200": {
+                        "description": "Estabelecimento deletado com sucesso."
+                    }
+                }
+            }
+        },
+        "/pessoa/save": {
+            "post": {
+                "summary": "Cadastro de pessoa",
+                "description": "Essa rota permite o cadastro de pessoa.",
+                "tags": ["Pessoa"],
+                "security": [{"bearerAuth" : [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PessoaSave"
+                            },
+                            "examples": {
+                                "pessoaCadastro": {
+                                    "value": {
+                                        "nome": "Pessoa",
+                                        "tipo": "CL",
+                                        "documento": "12345678910",
+                                        "tipo_documento": "F",
+                                        "estabelecimento": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Erro no cadastro de pessoa."
+                    },
+                    "200": {
+                        "description": "Cadastro realizado com sucesso."
+                    }
+                }
+
+            }
+        },
+        "/pessoa": {
+            "get": {
+                "summary": "Busca de pessoas.",
+                "description": "Essa rota permite pesquisar os pessoas.",
+                "tags": ["Pessoa"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Array de pessoas cadastrados."
+                    }
+                }
+            }
+        },
+        "/pessoa/{id}": {
+            "put": {
+                "summary": "Atualização de pessoa",
+                "description": "Essa rota permite a atualização de pessoa.",
+                "tags": ["Pessoa"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pessoa ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PessoaEdit"
+                            },
+                            "examples": {
+                                "pessoaEdit": {
+                                    "value": {
+                                        "tipo": "PC",
+                                        "nome": "Pessoa Edit",
+                                        "documento": "12345678000199",
+                                        "tipo_documento": "J"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Não existe pessoa para a ID informada./Erro na atualização de pessoa./Mensagem de erro YUP."
+                    },
+                    "200": {
+                        "description": "Pessoa alterada com sucesso."
+                    }
+                }
+
+            },
+            "delete": {
+                "summary": "Deleção de pessoas.",
+                "description": "Essa rota permite deletar os pessoas.",
+                "tags": ["Pessoa"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Usuário ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Não existe pessoa para a ID informada."
+                    },
+                    "200": {
+                        "description": "Pessoa deletada com sucesso."
+                    }
+                }
+            }
+        },
+        "/dados/contato/{entidade}/{id}":{
+            "post": {
+                "summary": "Cadastro de contato",
+                "description": "Essa rota permite o cadastro de contato.",
+                "tags": ["Contato"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "entidade",
+                        "in": "path",
+                        "description": "estabelecimento ou pessoa",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "estabelecimento ou pessoa ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ContatoSave"
+                            },
+                            "examples": {
+                                "contatoCadastro": {
+                                    "value": {
+                                        "telefone": "88888888",
+                                        "celular": "99999999",
+                                        "telefone_comercial": "33339999",
+                                        "email": "dados@gmail.com"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Erro no cadastro de contato."
+                    },
+                    "200": {
+                        "description": "Dados de contato cadastrados e vinculados a entidade de Estabelecimento/Pessoa."
+                    }
+                }
+
+            }
+        },
+        "/dados/contato/{id}": {
+            "put": {
+                "summary": "Edição de contato",
+                "description": "Essa rota permite a edição de contato.",
+                "tags": ["Contato"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "contato ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ContatoSave"
+                            },
+                            "examples": {
+                                "contatoCadastro": {
+                                    "value": {
+                                        "telefone": "88888888",
+                                        "celular": "99999999",
+                                        "telefone_comercial": "33339999",
+                                        "email": "dados_edit@gmail.com"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Erro na atualização de contato."
+                    },
+                    "200": {
+                        "description": "Contato atualizado com sucesso."
+                    }
+                }
+
+            }
+        },
+        "/dados/endereco/{entidade}/{id}":{
+            "post": {
+                "summary": "Cadastro de endereço",
+                "description": "Essa rota permite o cadastro de endereço.",
+                "tags": ["Endereço"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "entidade",
+                        "in": "path",
+                        "description": "estabelecimento ou pessoa",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "estabelecimento ou pessoa ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EnderecoSave"
+                            },
+                            "examples": {
+                                "contatoCadastro": {
+                                    "value": {
+                                        "tipo_endereco": "P",
+                                        "cep": "00000000",
+                                        "cidade": "Brasília",
+                                        "uf": "DF",
+                                        "logradouro": "Logradouro Teste",
+                                        "numero": "08",
+                                        "bairro": "Bairro Teste",
+                                        "complemento": "Setor Teste"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Erro no cadastro de endereço."
+                    },
+                    "200": {
+                        "description": "Dados de endereço cadastrados e vinculados a entidade de Estabelecimento/Pessoa."
+                    }
+                }
+
+            }
+        },
+        "/dados/endereco/{id}": {
+            "put": {
+                "summary": "Edição de endereço",
+                "description": "Essa rota permite a edição de endereço.",
+                "tags": ["Endereço"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "contato ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EnderecoSave"
+                            },
+                            "examples": {
+                                "contatoCadastro": {
+                                    "value": {
+                                        "tipo_endereco": "P",
+                                        "cep": "00000000",
+                                        "cidade": "Brasília",
+                                        "uf": "DF",
+                                        "logradouro": "Logradouro Teste Edit",
+                                        "numero": "08",
+                                        "bairro": "Bairro Teste Edit",
+                                        "complemento": "Setor Teste Edit"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Erro na atualização de endereço."
+                    },
+                    "200": {
+                        "description": "Endereço atualizado com sucesso."
+                    }
+                }
+
+            }
+        },
+        "/dados/bancarios/{entidade}/{id}":{
+            "post": {
+                "summary": "Cadastro de dados bancários",
+                "description": "Essa rota permite o cadastro de dados bancários.",
+                "tags": ["Bancários"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "entidade",
+                        "in": "path",
+                        "description": "estabelecimento ou pessoa",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "estabelecimento ou pessoa ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BancariosSave"
+                            },
+                            "examples": {
+                                "contatoCadastro": {
+                                    "value": {
+                                        "bancarios": "dados_bancarios"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Erro no cadastro de dados bancários."
+                    },
+                    "200": {
+                        "description": "Dados de bancários cadastrados e vinculados a entidade de Estabelecimento/Pessoa."
+                    }
+                }
+
+            }
+        },
+        "/dados/bancarios/{id}": {
+            "put": {
+                "summary": "Edição de dados bancários",
+                "description": "Essa rota permite a edição de dados bancários.",
+                "tags": ["Bancários"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "contato ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BancariosSave"
+                            },
+                            "examples": {
+                                "contatoCadastro": {
+                                    "value": {
+                                        "bancarios": "dados bancarios edit"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Erro na atualização de endereço."
+                    },
+                    "200": {
+                        "description": "Endereço atualizado com sucesso."
+                    }
+                }
+
+            }
+        },
+        "/dados/{entidade}/{id}": {
+            "delete": {
+                "summary": "Deleção dados de contato, endereço e bancários",
+                "description": "Essa rota permite a deleção dados de contato, endereço e bancários",
+                "tags": ["Deleção de Dados"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "entidade",
+                        "in": "path",
+                        "description": "contato, endereco ou bancarios",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "contato ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Não existe dados contato, endereco ou bancarios para a ID informada./Erro na atualização de contato, endereco ou bancarios"
+                    },
+                    "200": {
+                        "description": "Contato, endereco ou bancarios deletado com sucesso."
+                    }
+                }
+
+            }
+        },
+        "/permissao/{id}": {
+            "post": {
+                "summary": "Cadastro de permissão",
+                "description": "Essa rota permite o cadastro de permissão.",
+                "tags": ["Permissão"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Usuário ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PermissaoSave"
+                            },
+                            "examples": {
+                                "pessoaCadastro": {
+                                    "value": {
+                                        "ids": [1,2,3,4]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Não existe usuário para a ID informada./Array de permissões vazio./Erro ao vincular funcionalidade ao usuário"
+                    },
+                    "200": {
+                        "description": "Permissões atualizadas com sucesso."
+                    }
+                }
+
+            },
+            "delete": {
+                "summary": "Deleção de permissão",
+                "description": "Essa rota permite a deleção de permissão.",
+                "tags": ["Permissão"],
+                "security": [{"bearerAuth" : [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Usuário ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PermissaoSave"
+                            },
+                            "examples": {
+                                "pessoaCadastro": {
+                                    "value": {
+                                        "ids": [1,2,3,4]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Não existe usuário para a ID informada./Array de permissões vazio./Erro ao desvincular funcionalidade ao usuário"
+                    },
+                    "200": {
+                        "description": "Permissões atualizadas com sucesso."
+                    }
+                }
+
+            }
+        }
+        
+    },
+    "components": {
+        "schemas": {
+            "UsuarioSave": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "senha": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UsuarioLogin": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "senha": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UsuarioEdit": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "EstabelecimentoSave": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PessoaSave": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "tipo": {
+                        "type": "string"
+                    },
+                    "documento": {
+                        "type": "string"
+                    },
+                    "tipo_documento": {
+                        "type": "string"
+                    },
+                    "estabelecimento": {
+                        "type": "number"
+                    }
+                }
+            },
+            "PessoaEdit": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "tipo": {
+                        "type": "string"
+                    },
+                    "documento": {
+                        "type": "string"
+                    },
+                    "tipo_documento": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ContatoSave": {
+                "type": "object",
+                "properties": {
+                    "telefone": {
+                        "type": "string"
+                    },
+                    "celular": {
+                        "type": "string"
+                    },
+                    "telefone_comercial": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "EnderecoSave": {
+                "type": "object",
+                "properties": {
+                    "tipo_endereco": {
+                        "type": "string"
+                    },
+                    "cep": {
+                        "type": "string"
+                    },
+                    "cidade": {
+                        "type": "string"
+                    },
+                    "uf": {
+                        "type": "string"
+                    },
+                    "logradouro": {
+                        "type": "string"
+                    },
+                    "numero": {
+                        "type": "string"
+                    },
+                    "bairro": {
+                        "type": "string"
+                    },
+                    "complemento": {
+                        "type": "string"
+                    }
+                }
+            },
+            "BancariosSave": {
+                "type": "object",
+                "properties": {
+                    "bancarios": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PermissaoSave": {
+                "type": "object",
+                "properties": {
+                    "ids": [
+                        "number"
+                    ]
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

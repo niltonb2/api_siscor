@@ -1,0 +1,46 @@
+service: siscor
+useDotenv: true
+
+plugins:
+  - serverless-offline
+
+custom:
+  bucket: ""
+  defaultStage: qas
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  environment:
+    STAGE: ${sls:stage}
+  stage: ${sls:stage}
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+      Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+
+functions:
+  app:
+    handler: app.handler
+    description: "[SISCOR] API do SISCOR"
+    events:
+      - http: ANY /
+      - http: "ANY /{proxy+}"
+    environment:
+      NODE_ENV: ${sls:stage}
+      DB_CLIENT: ${env:DB_CLIENT}
+      DB_HOST: ${env:DB_HOST}
+      DB_PORT: ${env:DB_PORT}
+      DB_NAME: ${env:DB_NAME}
+      DB_USER: ${env:DB_USER}
+      DB_PASSWORD: ${env:DB_PASSWORD}
+      URL_POSTBACK_SISCOR: ${env:URL_POSTBACK_SISCOR}
+      URL_API_PAGAMENTO: ${env:URL_API_PAGAMENTO}
+      RECEITAWS_API_TOKEN: ${env:RECEITAWS_API_TOKEN}
+      URL_RECEITAWS: ${env:URL_RECEITAWS}
+      API_KEY: ${env:API_KEY}
+      JWTSecret: ${env:JWTSecret}
+      PORT: ${env:PORT}
+
